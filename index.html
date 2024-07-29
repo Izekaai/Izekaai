@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio of Sin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://media.wired.com/photos/663e6e46379fecbdb1710ea8/master/pass/Science_electromagnetic-alert_GettyImages-1414547733_.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .password-container,
+        .bio-container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            animation: popIn 0.6s ease forwards;
+        }
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .password-container input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            width: 80%;
+        }
+        .password-container button {
+            padding: 10px 20px;
+            background-color: #a777e3;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            color: #fff;
+            cursor: pointer;
+        }
+        .bio-container {
+            display: none;
+        }
+        .bio-container img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 4px solid #fff;
+            margin-top: -75px;
+        }
+        .bio-container h1 {
+            margin: 20px 0 10px;
+            font-size: 2.5em;
+        }
+        .bio-container p {
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #a777e3;
+        }
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 0.15em solid #fff;
+            white-space: nowrap;
+            animation: typing 5s steps(60, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fff }
+        }
+    </style>
+</head>
+<body>
+    <div class="password-container" id="passwordContainer">
+        <h1>Enter Password</h1>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+
+    <div class="bio-container" id="bioContainer">
+        <img src="profile-picture.jpg" alt="Profile Picture">
+        <h1>Sin</h1>
+        <p id="bioText" class="typewriter-text">The moon's serene luminescence captivates me.</p>
+        <div class="social-links">
+            <a href="https://www.roblox.com/users/592459085/profile" target="_blank">Roblox</a>
+            <a href="https://" target="_blank">LinkedIn</a>
+            <a href="https://github.com/username" target="_blank">GitHub</a>
+        </div>
+    </div>
+
+    <audio id="wrongPasswordAudio" src="nah.wav"></audio>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === '2789') {
+                document.getElementById('passwordContainer').style.display = 'none';
+                document.getElementById('bioContainer').style.display = 'block';
+            } else {
+                document.getElementById('wrongPasswordAudio').play();
+                alert('Incorrect password. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
