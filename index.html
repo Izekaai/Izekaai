@@ -592,7 +592,7 @@
             return Math.abs(hash).toString();
         }
 
-        // Check if user is currently locked out
+
         function checkLockout() {
             const lockoutEnd = localStorage.getItem('lockoutEnd');
             if (lockoutEnd && Date.now() < parseInt(lockoutEnd)) {
@@ -619,7 +619,7 @@
             }, LOCKOUT_DURATION);
         }
 
-        // Validate access attempt
+
         function validateAccess() {
             if (isLocked) {
                 checkLockout();
@@ -635,18 +635,17 @@
             }
 
             if (password === CORRECT_PASSWORD) {
-                // Successful authentication
+
                 localStorage.removeItem('lockoutEnd');
                 attemptCount = 0;
                 showBioPage();
                 return;
             }
 
-            // Failed attempt
+
             attemptCount++;
             const attemptsRemaining = MAX_ATTEMPTS - attemptCount;
             
-            // Update attempt counter
             const counter = document.getElementById('attemptCounter');
             const countSpan = document.getElementById('attemptCount');
             countSpan.textContent = attemptCount;
@@ -658,8 +657,7 @@
             } else {
                 showError(`Incorrect password. ${attemptsRemaining} attempts remaining.`);
             }
-            
-            // Clear input and add shake effect
+
             input.value = '';
             input.style.animation = 'shake 0.5s ease-in-out';
             setTimeout(() => {
@@ -667,7 +665,6 @@
             }, 500);
         }
 
-        // Enhanced audio feedback
         function playErrorSound() {
             const audio = document.getElementById('errorAudio');
             if (audio) {
@@ -682,14 +679,12 @@
             }
         }
 
-        // Show error message with enhanced UX
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage');
             errorDiv.textContent = message;
             errorDiv.className = 'error-message show';
             playErrorSound();
             
-            // Add intense shake to the whole container
             const container = document.querySelector('.auth-container');
             container.style.animation = 'shake 0.6s ease-in-out';
             setTimeout(() => {
@@ -697,14 +692,12 @@
             }, 600);
         }
 
-        // Hide error message
         function hideError() {
             const errorDiv = document.getElementById('errorMessage');
             errorDiv.className = 'error-message';
             errorDiv.style.display = 'none';
         }
 
-        // Show bio page with transition
         function showBioPage() {
             const authContainer = document.getElementById('authContainer');
             const bioContainer = document.getElementById('bioContainer');
@@ -718,7 +711,6 @@
             }, 300);
         }
 
-        // Enhanced input handling
         function setupInputHandlers() {
             const input = document.getElementById('passwordInput');
             const submitBtn = document.getElementById('submitBtn');
@@ -733,18 +725,14 @@
                 hideError();
             });
             
-            // Focus input on page load
             setTimeout(() => input.focus(), 500);
         }
 
-        // Security headers simulation
         function initSecurity() {
-            // Disable right-click context menu
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
             });
             
-            // Disable common keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'F12' || 
                     (e.ctrlKey && e.shiftKey && e.key === 'I') ||
@@ -754,7 +742,6 @@
                 }
             });
             
-            // Basic XSS protection
             const scripts = document.querySelectorAll('script');
             scripts.forEach(script => {
                 if (script.src && !script.src.includes(window.location.hostname) && !script.src.includes('googleapis.com')) {
@@ -763,25 +750,21 @@
             });
         }
 
-        // Initialize application
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             setupInputHandlers();
             initSecurity();
             checkLockout();
             
-            // Preload and setup audio
             const audio = document.getElementById('errorAudio');
             audio.load();
             
-            // Preload profile image with better fallback
             const img = document.getElementById('profileImg');
             img.onerror = function() {
                 this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNzAiIGN5PSI3MCIgcj0iNzAiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+PGNpcmNsZSBjeD0iNzAiIGN5PSI1NSIgcj0iMjAiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zKSIvPjxwYXRoIGQ9Ik0zNSAxMDBDMzUgODcuMjk3IDQ2Ljc5IDc3IDYxLjUgNzdIMzAuNUM5NS4yMDggNzcgMTA3IDg3LjI5NyAxMDcgMTAwVjExMEgzNVYxMDBaIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMykiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==';
             };
         });
 
-        // Cleanup on page unload
         window.addEventListener('beforeunload', function() {
             if (lockoutTimer) {
                 clearTimeout(lockoutTimer);
